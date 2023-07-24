@@ -1,0 +1,11 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore build output
+/build/
+/dist/
+
+# Ignore IDE specific files and directories
+.vscode/
+.idea/
+*.target/
