@@ -19,7 +19,7 @@ The Puzzle Assembly Web Application is a user-friendly tool that allows users to
 
 1. Start the development server: `npm start`
 2. Open your web browser and go to `http://localhost:3000`
-3. Start the Spring Boot server.
+3. Build and run the Spring Boot application.
 
 ## Technologies Used
 
