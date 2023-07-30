@@ -26,7 +26,7 @@ const PuzzleUploader = ({ onImageUpload }) => {
               id="photoInput"
               accept="image/*"
               onChange={handleFileChange}
-              multiple // Allow multiple image selection
+              multiple
             />
           </div>
           <div className="text-center">

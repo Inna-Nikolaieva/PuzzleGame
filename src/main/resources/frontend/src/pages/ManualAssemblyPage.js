@@ -10,6 +10,7 @@ const ManualAssemblyPage = () => {
      const [assembledPuzzles, setAssembledPuzzles] = useState([]);
      const [selectedImages, setSelectedImages] = useState([]);
      const [puzzleData, setPuzzleData] = useState([]);
+     const [assembledPuzzles, setAssembledPuzzles] = useState([]);
 
      const handleImageUpload = (images) => {
        setSelectedImages(images);
@@ -31,29 +32,33 @@ const ManualAssemblyPage = () => {
 
       const selected = useRef();
 
-      const handleMouseDown = (event, index) => {
-        const { offsetX, offsetY } = event.nativeEvent;
-        selected.current = { index, offsetX, offsetY };
-        document.addEventListener("mousemove", handleMouseMove);
-      };
+          const handleMouseDown = (event, index) => {
+              const {offsetX, offsetY} = event.nativeEvent;
+              selected.current = {index, element: event.target, offsetX, offsetY};
+              document.addEventListener("mousemove", handleMouseMove);
+          };
 
-      const handleMouseMove = (event) => {
-        const { index, offsetX, offsetY } = selected.current;
-        const positionX = event.pageX - offsetX;
-        const positionY = event.pageY - offsetY;
-        pieces[index].position = [positionX, positionY];
-      };
+          const handleMouseMove = (event) => {
+              const {index, element, offsetX, offsetY} = selected.current;
+              const positionX = event.pageX - offsetX;
+              const positionY = event.pageY - offsetY;
+              pieces[index].position = [positionX, positionY];
+              element.style.left = `${positionX}px`;
+              element.style.top = `${positionY}px`;
+          };
 
-      const handleMouseUp = () => {
-        const sortedPieces = sortPiecesByPosition(pieces);
-        setAssembledPuzzles(sortedPieces);
-        endDrag();
-      };
+          const handleMouseUp = () => {
+              const sortedPieces = sortPiecesByPosition(pieces);
+              console.log(sortedPieces.map(sortedPiece => sortedPiece.index))
+              setAssembledPuzzles(sortedPieces);
+              endDrag();
+          };
 
-      const endDrag = () => {
-        selected.current = null;
-        document.removeEventListener("mousemove", handleMouseMove);
-      };
+          const endDrag = () => {
+              selected.current = null;
+              document.removeEventListener("mousemove", handleMouseMove);
+          };
+
 
       const sortPiecesByPosition = (pieces) => {
         return [...pieces].sort((a, b) => {
@@ -78,6 +83,9 @@ const ManualAssemblyPage = () => {
 
                 const response = await axios.post('http://localhost:8081/api/autoCompletePuzzles', base64Images);
 
+                const assembledImageUrl = response.data.imageUrl;
+
+                setAssembledImageUrl(assembledImageUrl);
               } catch (error) {
                 console.error('Error verifying puzzles:', error);
               }
@@ -95,7 +103,15 @@ const ManualAssemblyPage = () => {
               <div className="card mb-3">
                 <div className="card-header">Assemble Puzzles</div>
                 <div className="card-body" style={{ minHeight: "400px" }}>
-                  {pieces.map((piece, index) => (
+                     {assembledImageUrl && (
+                        <img
+                          src={assembledImageUrl}
+                          alt="Assembled Puzzle"
+                          style={{ width: "100%", maxHeight: "400px" }}
+                        />
+
+                     )}
+                    {pieces.map((piece, index) => (
                     <div
                       key={index}
                       onMouseDown={(event) => handleMouseDown(event, index)}

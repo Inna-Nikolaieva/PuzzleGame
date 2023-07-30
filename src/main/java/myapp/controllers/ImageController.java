@@ -1,16 +1,14 @@
 package myapp.controllers;
 
 import myapp.services.ImageService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.MalformedURLException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class ImageController {
 
     private final ImageService imageService;
@@ -19,7 +17,7 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @PostMapping("/api/divideImage")
+    @PostMapping("/divideImage")
     public void divideImage(@RequestParam("image") MultipartFile image,
                             @RequestParam("numberOfPieces") int numberOfPieces) {
 
@@ -32,7 +30,6 @@ public class ImageController {
         return imageService.verify(base64Images);
     }
 
-
     @PostMapping("/autoCompletePuzzles")
     public void autoCompletePuzzles(@RequestBody List<String> base64Images) {
         try {
@@ -41,6 +38,4 @@ public class ImageController {
             e.printStackTrace();
         }
     }
-
 }
-

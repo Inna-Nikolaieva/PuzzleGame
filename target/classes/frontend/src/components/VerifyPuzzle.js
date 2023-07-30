@@ -1,7 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import "../api/services";
-import {splitImage, verifyPuzzles} from "../api/services";
-
+import axios from "axios";
 
 const VerifyPuzzle = (props) => {
     const {data} = props;
@@ -17,9 +15,16 @@ const VerifyPuzzle = (props) => {
     }
 
     async function handleAssembledPuzzles() {
-        let base64Images = data.map(d => d.image.src.split(',')[1]);
-        const response = await verifyPuzzles(base64Images);
-        setIsSuccess(response);
+        try {
+              let base64Images = data.map((d) => d.image.src.split(',')[1]);
+
+              const response = await axios.post('http://localhost:8081/api/verifyPuzzles', base64Images);
+
+              setIsSuccess(response.data);
+            } catch (error) {
+              console.error('Error verifying puzzles:', error);
+              setIsSuccess(false);
+            }
     }
 
     return (

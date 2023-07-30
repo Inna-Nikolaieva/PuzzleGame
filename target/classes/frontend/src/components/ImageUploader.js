@@ -23,11 +23,9 @@ const ImageUploader = ({ onImageUpload, numberOfPieces, handleNumberOfPiecesChan
         },
       })
       .then((response) => {
-        // Handle the response from the server (e.g., show the processed image)
         console.log("Processed image:", response.data);
       })
       .catch((error) => {
-        // Handle any errors
         console.error("Error processing image:", error);
       });
   };
@@ -58,7 +56,7 @@ const ImageUploader = ({ onImageUpload, numberOfPieces, handleNumberOfPiecesChan
                 name="numberOfPieces"
                 value="16"
                 checked={numberOfPieces === 16}
-                onChange={() => handleNumberOfPiecesChange(16)} // Pass the desired number of pieces as an argument
+                onChange={() => handleNumberOfPiecesChange(16)}
               />
               <label className="form-check-label">16</label>
             </div>
@@ -69,7 +67,7 @@ const ImageUploader = ({ onImageUpload, numberOfPieces, handleNumberOfPiecesChan
                 name="numberOfPieces"
                 value="25"
                 checked={numberOfPieces === 25}
-                onChange={() => handleNumberOfPiecesChange(25)} // Pass the desired number of pieces as an argument
+                onChange={() => handleNumberOfPiecesChange(25)}
               />
               <label className="form-check-label">25</label>
             </div>
@@ -80,7 +78,7 @@ const ImageUploader = ({ onImageUpload, numberOfPieces, handleNumberOfPiecesChan
                  name="numberOfPieces"
                  value="36"
                  checked={numberOfPieces === 36}
-                 onChange={() => handleNumberOfPiecesChange(36)} // Pass the desired number of pieces as an argument
+                 onChange={() => handleNumberOfPiecesChange(36)}
                />
                <label className="form-check-label">36</label>
             </div>
@@ -98,6 +96,3 @@ const ImageUploader = ({ onImageUpload, numberOfPieces, handleNumberOfPiecesChan
 };
 
 export default ImageUploader;
-
-
-

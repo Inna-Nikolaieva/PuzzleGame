@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import ImageUploader from "../components/ImageUploader"
 
 const BreakPicturePage = () => {
-  const [numberOfPieces, setNumberOfPieces] = useState(16);
+    const [numberOfPieces, setNumberOfPieces] = useState(16);
     const [processedImage, setProcessedImage] = useState(null);
 
     const handleImageUpload = (imageFile) => {

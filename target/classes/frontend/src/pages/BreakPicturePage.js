@@ -5,25 +5,21 @@ import Footer from "../components/Footer";
 import ImageUploader from "../components/ImageUploader"
 
 const BreakPicturePage = () => {
-  const [numberOfPieces, setNumberOfPieces] = useState(16);
+    const [numberOfPieces, setNumberOfPieces] = useState(16);
     const [processedImage, setProcessedImage] = useState(null);
 
     const handleImageUpload = (imageFile) => {
-      // Create a FormData object to send the image and the selected number of pieces
       const formData = new FormData();
       formData.append('image', imageFile);
       formData.append('numberOfPieces', numberOfPieces);
 
-      // Make a POST request to the server using Axios
       axios
         .post('http://localhost:8081/api/divideImage', formData)
         .then((response) => {
-          // Handle the response from the server (e.g., show the processed image)
           console.log('Processed image:', response.data);
-          setProcessedImage(response.data); // Assuming the server returns the processed image URL
+          setProcessedImage(response.data);
         })
         .catch((error) => {
-          // Handle any errors
           console.error('Error processing image:', error);
         });
     };
